@@ -20,90 +20,109 @@ class Messages():
       START_MSG = "**Hello 👋 [{}](tg://user?id={})!**\n\n🤖 I am an advanced bot created for playing music in the voice chats of Telegram Groups & Channels.\n\n✅ Send me /help for more info."
       HELP_MSG = [
         ".",
-f"""
-**Hey 👋 Welcome back to {PROJECT_NAME}
+  f"""⚜️<b>Hi.. {message.from_user.first_name} Welcome To 𝗩𝗜𝗥𝗧𝗨𝗔𝗟 𝗠𝗨𝗦𝗜𝗖⚜️
 
-⚪️ {PROJECT_NAME} can play music in your group's voice chat as well as channel voice chats
+Aku Adalah Bot Music Telegram Yang Akan Menemani mu Di Voice Call Group.
+Jika Ingin Menggunakan Invite Aku Dan Asisstantnya Ke Dalam Group Lalu Angkat Bot Menjadi Admin. Jika Ada Kendala Bisa Chat Pemilik Nya.
+━━━━━━━━━━━━━━
+🤵𝓒𝓻𝓮𝓪𝓽𝓮𝓭 𝓫𝔂 : [IKYY](https://t.me/boyfriendnice)
+☘️𝓣𝓱𝓪𝓷𝓴𝓼 𝓯𝓸𝓻 : [Grup Support](https://t.me/joinchat/Ox6DnOHTf5FlZDk1)
+━━━━━━━━━━━━━━
+𝐁𝐎𝐓 𝐌𝐔𝐒𝐈𝐊 : @Virtualsong_bot
+𝐀𝐒𝐈𝐒𝐒𝐓𝐀𝐍𝐓 𝐌𝐔𝐒𝐈𝐊 : @AsisstantMusicVirtual
+</b>""",
+      
+       
+        reply_markup=InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton(
+                        "Command", url="https://t.me/MusikManagement/11",
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
+                        "💬 Group", url="https://t.me/joinchat/Ox6DnOHTf5FlZDk1"
+                    ),
+                    InlineKeyboardButton(
+                        "🔊 Channel", url="https://t.me/MusikManagement"
+                    ),
+                    InlineKeyboardButton(
+                        "🦇 Owner", url="https://t.me/boyfriendnice"
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
+                        "🍀 Instagram", url="https://www.instagram.com/ikyyy_35/"
+                    ) 
+                ]
+            ]
+        )
+    )
+@Client.on_message(
+    filters.command("start")
+    & filters.group
+    & ~ filters.edited
+)
+async def start(client: Client, message: Message):
+    await message.reply_text(
+        "💁🏻‍♂️ Do you want to search for a YouTube video?",
+        reply_markup=InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton(
+                        "🔊 Channel", url="https://t.me/MusikManagement"
+                    )
+                ],    
+                [    
+                    InlineKeyboardButton(
+                        "✅ Yes", switch_inline_query_current_chat=""
+                    ),
+                    InlineKeyboardButton(
+                        "No ❌", callback_data="close"
+                    )
+                ]
+            ]
+        )
+    )
 
-⚪️ Assistant name >> @{ASSISTANT_NAME}\n\nClick next for instructions**
-""",
+@Client.on_message(
+    filters.command("help")
+    & filters.group
+    & ~ filters.edited
+)
+async def help(client: Client, message: Message):
+    await message.reply_text(
+        f"""<b>Hi {message.from_user.first_name}!
 
-f"""
-**Setting up**
+⚜️Users Commands⚜️
+/play <song name> - play song you requested
+/dplay <song name> - play song you requested via deezer
+/splay <song name> - play song you requested via jio saavn
+/playlist - Show now playing list
+/current - Show now playing
+/song <song name> - download songs you want quickly
+/search <query> - search videos on youtube with details
+/deezer <song name> - download songs you want quickly via deezer
+/saavn <song name> - download songs you want quickly via saavn
+/video <song name> - download videos you want quickly
 
-1) Make bot admin (Group and in channel if use cplay)
-2) Start a voice chat
-3) Try /play [song name] for the first time by an admin
-*) If userbot joined enjoy music, If not add @{ASSISTANT_NAME} to your group and retry
-
-**For Channel Music Play**
-1) Make me admin of your channel 
-2) Send /userbotjoinchannel in linked group
-3) Now send commands in linked group
-
-**Commands**
-
-**=>> Song Playing 🎧**
-
-- /play: Play song using youtube music
-- /play [yt url] : Play the given yt url
-- /play [reply yo audio]: Play replied audio
-- /dplay: Play song via deezer
-- /splay: Play song via jio saavn
-
-**=>> Playback ⏯**
-
-- /player: Open Settings menu of player
-- /skip: Skips the current track
-- /pause: Pause track
-- /resume: Resumes the paused track
-- /end: Stops media playback
-- /current: Shows the current Playing track
-- /playlist: Shows playlist
-
-*Player cmd and all other cmds except /play, /current  and /playlist  are only for admins of the group.
-""",
-        
-f"""
-**=>> Channel Music Play 🛠**
-
-⚪️ For linked group admins only:
-
-- /cplay [song name] - play song you requested
-- /cdplay [song name] - play song you requested via deezer
-- /csplay [song name] - play song you requested via jio saavn
-- /cplaylist - Show now playing list
-- /cccurrent - Show now playing
-- /cplayer - open music player settings panel
-- /cpause - pause song play
-- /cresume - resume song play
-- /cskip - play next song
-- /cend - stop music play
-- /userbotjoinchannel - invite assistant to your chat
-
-channel is also can be used instead of c ( /cplay = /channelplay )
-
-⚪️ If you donlt like to play in linked group:
-
-1) Get your channel ID.
-2) Create a group with tittle: Channel Music: your_channel_id
-3) Add bot as Channel admin with full perms
-4) Add @{ASSISTANT_NAME} to the channel as an admin.
-5) Simply send commands in your group.
-""",
-
-f"""
-**=>> More tools 🧑‍🔧**
-
-- /admincache: Updates admin info of your group. Try if bot isn't recognize admin
-- /userbotjoin: Invite @{ASSISTANT_NAME} Userbot to your chat
-
-**=>> Commands for Sudo Users ⚔️**
-
- - /userbotleaveall - remove assistant from all chats
- - /gcast <reply to message> - globally brodcast replied message to all chats
- - /pmpermit [on/off] - enable/disable pmpermit message
-*Sudo Users can execute any command in any groups
-
-"""
-      ]
+⚜️Admins only⚜️
+/player - open Music player settings panel
+/pause - pause song play
+/resume - resume song play
+/skip - play next song
+/end - stop music play
+/userbotjoin - invite assistant to your chat
+/admincache - Refresh admin list
+ </b>""",
+        reply_markup=InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton(
+                        "🔊 Channel", url="https://t.me/MusikManagement"
+                    )
+                ]
+            ]
+        )
+    )    
